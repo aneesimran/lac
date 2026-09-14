@@ -1,0 +1,1144 @@
+.bookingPage {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding: 8rem 0 6rem 0;
+}
+
+.header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem auto;
+}
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: 3.25rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.pageSubtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ────────────────── STEPPER ────────────────── */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 680px;
+  margin: 0 auto 3.5rem auto;
+  padding: 0 1rem;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.stepCircle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #151520;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-dim);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.stepActive {
+  background: var(--accent-pink);
+  border-color: var(--accent-pink);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.6);
+}
+
+.stepDone {
+  background: rgba(217, 70, 239, 0.2);
+  border-color: var(--accent-pink);
+  color: var(--accent-violet);
+}
+
+.stepLabel {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.stepLabelActive {
+  color: #ffffff;
+}
+
+.stepLine {
+  width: 60px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 0.75rem;
+  transition: background 0.3s ease;
+}
+
+.stepLineDone {
+  background: var(--accent-pink);
+}
+
+/* ────────────────── CARD CONTAINER ────────────────── */
+.stepContent {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.card {
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.cardHeader {
+  margin-bottom: 2rem;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.cardSubtitle {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+/* ────────────────── UK REG NUMBERPLATE ────────────────── */
+.regForm {
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.plateBox {
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 30px rgba(255, 213, 0, 0.25);
+}
+
+.plateFlag {
+  background: var(--plate-blue);
+  color: #ffffff;
+  padding: 0 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+}
+
+.flagStars {
+  color: var(--plate-yellow);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.flagCode {
+  color: var(--plate-yellow);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.plateInput {
+  background: var(--plate-yellow);
+  color: #000000;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.5rem;
+  width: 250px;
+  outline: none;
+  border: none;
+}
+
+.plateInput::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.regSubmitBtn {
+  padding: 0.85rem 1.75rem;
+}
+
+.matchedCarCard {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(217, 70, 239, 0.08);
+  border: 1px solid rgba(217, 70, 239, 0.35);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.matchedCarIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(217, 70, 239, 0.2);
+  color: var(--accent-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.matchedBadge {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--accent-pink);
+  margin-bottom: 0.2rem;
+}
+
+.matchedTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.matchedMeta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.lookupAlert {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  border-radius: 10px;
+  color: #fde047;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.manualEntryRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1.25rem;
+}
+
+.orText {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.manualInput {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  color: #ffffff;
+  font-size: 0.9rem;
+  min-width: 280px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.manualInput:focus {
+  border-color: var(--accent-pink);
+}
+
+/* ────────────────── SERVICE TABS ────────────────── */
+.serviceTabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.serviceTab {
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.25s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.serviceTab:hover {
+  border-color: rgba(217, 70, 239, 0.3);
+  transform: translateY(-2px);
+}
+
+.serviceTabActive {
+  background: rgba(217, 70, 239, 0.12);
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 25px rgba(217, 70, 239, 0.2);
+}
+
+.serviceTabHighlight {
+  border-color: rgba(217, 70, 239, 0.4);
+}
+
+.tabIcon {
+  color: var(--accent-pink);
+  margin-bottom: 0.75rem;
+}
+
+.tabLabel {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+}
+
+.tabBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-violet);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+
+/* ────────────────── PACKAGES GRID ────────────────── */
+.packagesSection {
+  margin-top: 2rem;
+}
+
+.packageGroup {
+  margin-bottom: 2.5rem;
+}
+
+.groupTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+}
+
+.packagesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.pkgCard {
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pkgCard:hover {
+  border-color: rgba(217, 70, 239, 0.35);
+  transform: translateY(-2px);
+}
+
+.pkgCardActive {
+  background: rgba(217, 70, 239, 0.12);
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 25px rgba(217, 70, 239, 0.2);
+}
+
+.pkgTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.pkgName {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.pkgTier {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-pink);
+}
+
+.pkgPrice {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--accent-violet);
+  white-space: nowrap;
+}
+
+.pkgFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.pkgFeatureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.featureCheckIcon {
+  color: var(--accent-pink);
+  flex-shrink: 0;
+}
+
+/* Custom Consultation Box */
+.customConsultBox {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  background: #11111a;
+  border: 1px solid rgba(217, 70, 239, 0.3);
+  border-radius: 16px;
+  padding: 2.25rem;
+}
+
+.customConsultIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(217, 70, 239, 0.15);
+  color: var(--accent-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.customConsultTitle {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.customConsultDesc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Add-ons */
+.addonsSection {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 2rem;
+}
+
+.addonsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.addonCard {
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addonCard:hover {
+  border-color: rgba(217, 70, 239, 0.3);
+}
+
+.addonActive {
+  background: rgba(217, 70, 239, 0.1);
+  border-color: var(--accent-pink);
+}
+
+.addonCheck {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-pink);
+  flex-shrink: 0;
+}
+
+.addonActive .addonCheck {
+  background: var(--accent-pink);
+  color: #ffffff;
+  border-color: var(--accent-pink);
+}
+
+.addonTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+}
+
+.addonDesc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ────────────────── STEP FOOTER ────────────────── */
+.stepFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 0;
+}
+
+.footerPricePreview {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.previewLabel {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.previewAmount {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.discountTag {
+  background: rgba(217, 70, 239, 0.15);
+  border: 1px solid rgba(217, 70, 239, 0.4);
+  color: var(--accent-violet);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+}
+
+/* ────────────────── STEP 2: CALENDAR & TIME ────────────────── */
+.dateTimeGrid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 3rem;
+}
+
+.calendarWrapper {
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.75rem;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.calNavBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.calNavBtn:hover {
+  background: rgba(217, 70, 239, 0.2);
+  color: var(--accent-pink);
+}
+
+.calMonthLabel {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.calDayNames {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
+}
+
+.calDaysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.calEmptyDay {
+  height: 42px;
+}
+
+.calDay {
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.calDay:hover:not(:disabled) {
+  background: rgba(217, 70, 239, 0.25);
+  color: #ffffff;
+}
+
+.calDaySelected {
+  background: var(--accent-pink) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.6);
+}
+
+.calDayDisabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.calendarFootnote {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.timeSlotsWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeSlotsTitle {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+}
+
+.timeSlotsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.timeSlotCard {
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timeSlotCard:hover {
+  border-color: rgba(217, 70, 239, 0.35);
+}
+
+.timeSlotActive {
+  background: rgba(217, 70, 239, 0.12);
+  border-color: var(--accent-pink);
+}
+
+.timeSlotRadio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timeSlotActive .timeSlotRadio {
+  border-color: var(--accent-pink);
+}
+
+.timeSlotDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-pink);
+}
+
+.timeSlotName {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+}
+
+.timeSlotDesc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.dateSummaryBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: rgba(217, 70, 239, 0.1);
+  border: 1px solid rgba(217, 70, 239, 0.35);
+  border-radius: 12px;
+  color: var(--accent-violet);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: auto;
+}
+
+/* ────────────────── STEP 3: DETAILS & REVIEW ────────────────── */
+.stepThreeGrid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 2.5rem;
+}
+
+.customerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.input,
+.textarea {
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.85rem 1.15rem;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.2);
+}
+
+.inputError {
+  border-color: #ef4444;
+}
+
+.errorMsg {
+  font-size: 0.78rem;
+  color: #ef4444;
+}
+
+.termsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-pink);
+  margin-top: 0.2rem;
+}
+
+.termsLabel {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.termsLink {
+  color: var(--accent-pink);
+  text-decoration: underline;
+}
+
+.formActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.confirmDepositBtn {
+  padding: 0.9rem 2rem;
+}
+
+/* Order Summary Column */
+.summaryCard {
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.summarySection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.summaryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.summaryLabel {
+  color: var(--text-muted);
+}
+
+.summaryVal {
+  color: #ffffff;
+  font-weight: 600;
+  text-align: right;
+}
+
+.summaryTotals {
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.totalsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.discountRow {
+  color: var(--accent-violet);
+  font-weight: 600;
+}
+
+.totalRowFinal {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.depositHighlightBox {
+  background: rgba(217, 70, 239, 0.12);
+  border: 1px solid rgba(217, 70, 239, 0.35);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.depositDueRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+}
+
+.depositDueAmount {
+  color: var(--accent-violet);
+  font-size: 1.35rem;
+}
+
+.depositNote {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.trustBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--accent-violet);
+  font-weight: 600;
+}
+
+/* ────────────────── STEP 4: CONFIRMATION & RECEIPT ────────────────── */
+.confirmationWrapper {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.confirmCard {
+  padding: 3.5rem 3rem;
+  text-align: center;
+}
+
+.confirmBadge {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.75rem auto;
+  box-shadow: 0 0 35px rgba(217, 70, 239, 0.6);
+}
+
+.confirmTitle {
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.confirmSubtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto 2rem auto;
+}
+
+.refBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(217, 70, 239, 0.12);
+  border: 1px solid rgba(217, 70, 239, 0.4);
+  padding: 0.65rem 1.5rem;
+  border-radius: 9999px;
+  margin-bottom: 2.5rem;
+}
+
+.refLabel {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.refCode {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--accent-violet);
+  letter-spacing: 0.05em;
+}
+
+.receiptGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  text-align: left;
+  background: #11111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.receiptItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.receiptLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-pink);
+}
+
+.receiptVal {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.receiptSub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.confirmActions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.waActionBtn {
+  width: 100%;
+}
+
+/* ────────────────── RESPONSIVE BREAKPOINTS ────────────────── */
+@media (max-width: 900px) {
+  .pageTitle {
+    font-size: 2.5rem;
+  }
+  .serviceTabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .packagesGrid {
+    grid-template-columns: 1fr;
+  }
+  .addonsGrid {
+    grid-template-columns: 1fr;
+  }
+  .dateTimeGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .stepThreeGrid {
+    grid-template-columns: 1fr;
+  }
+  .receiptGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .pageTitle {
+    font-size: 2rem;
+  }
+  .stepper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .stepLine {
+    display: none;
+  }
+  .card {
+    padding: 1.5rem;
+  }
+  .plateBox {
+    width: 100%;
+  }
+  .plateInput {
+    width: 100%;
+    font-size: 1.45rem;
+  }
+  .serviceTabs {
+    grid-template-columns: 1fr;
+  }
+  .confirmCard {
+    padding: 2.5rem 1.5rem;
+  }
+  .confirmTitle {
+    font-size: 2.2rem;
+  }
+}

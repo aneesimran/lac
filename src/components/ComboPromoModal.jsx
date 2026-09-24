@@ -2,13 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { X, ArrowRight, Sparkles } from 'lucide-react';
 import styles from './ComboPromoModal.module.css';
 
 export default function ComboPromoModal() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    // Never show on admin pages
+    if (pathname?.startsWith('/admin')) return;
+
     // Only show if user hasn't dismissed it in the last 24h
     const dismissed = sessionStorage.getItem('lac_combo_promo_dismissed');
     if (!dismissed) {
@@ -17,14 +22,14 @@ export default function ComboPromoModal() {
       }, 7000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [pathname]);
 
   const handleClose = () => {
     setIsOpen(false);
     sessionStorage.setItem('lac_combo_promo_dismissed', 'true');
   };
 
-  if (!isOpen) return null;
+  if (pathname?.startsWith('/admin') || !isOpen) return null;
 
   return (
     <div className={styles.overlay} onClick={handleClose}>

@@ -32,6 +32,10 @@ export default function Navbar() {
     { label: 'Contact', href: pathname === '/' ? '#contact' : '/#contact' },
   ];
 
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={`container ${styles.navContainer}`}>

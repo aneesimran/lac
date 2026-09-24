@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: 'lac-ltd.co.uk',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
     ],
   },
 };

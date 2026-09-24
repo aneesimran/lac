@@ -160,7 +160,12 @@ function BookingContent() {
   // Step 4 State: Confirmed Booking Details
   const [bookingRef, setBookingRef] = useState('');
 
-  // Handle URL query parameters (e.g., ?service=Combo or ?brand=Tesla)
+  // Promo Code State (e.g. LACHQ10 for 10% off)
+  const [promoInput, setPromoInput] = useState('');
+  const [appliedPromo, setAppliedPromo] = useState(null);
+  const [promoError, setPromoError] = useState('');
+
+  // Handle URL query parameters (e.g., ?service=Combo or ?brand=Tesla or ?reg=... or ?code=LACHQ10)
   useEffect(() => {
     const s = searchParams.get('service');
     if (s && ['Starlights', 'Ambient Lights', 'Combo', 'Custom Parts'].includes(s)) {
@@ -171,7 +176,43 @@ function BookingContent() {
       setManualVehicle(b);
       setVehicle({ make: b, model: 'Vehicle', year: '', colour: '' });
     }
+    const r = searchParams.get('reg');
+    if (r) {
+      const cleanReg = r.trim().toUpperCase().replace(/\s+/g, '');
+      setRegInput(cleanReg);
+      if (sampleDvlaCars[cleanReg]) {
+        setVehicle({ ...sampleDvlaCars[cleanReg], reg: cleanReg });
+      } else {
+        const vehicleParam = searchParams.get('vehicle') || 'Customer Car';
+        const makeParam = searchParams.get('make') || 'Vehicle';
+        setVehicle({
+          make: makeParam,
+          model: vehicleParam,
+          year: searchParams.get('year') || 'UK Spec',
+          colour: 'Custom',
+          reg: cleanReg,
+        });
+      }
+    }
+    const promo = searchParams.get('promo') || searchParams.get('code');
+    if (promo && promo.toUpperCase() === 'LACHQ10') {
+      setPromoInput('LACHQ10');
+      setAppliedPromo({ code: 'LACHQ10', discountPct: 10, label: 'Grand Opening (10% Off)' });
+    }
   }, [searchParams]);
+
+  // Apply promo code handler
+  const handleApplyPromo = (e) => {
+    if (e) e.preventDefault();
+    const code = promoInput.trim().toUpperCase();
+    if (!code) return;
+    if (code === 'LACHQ10') {
+      setAppliedPromo({ code: 'LACHQ10', discountPct: 10, label: 'Grand Opening (10% Off)' });
+      setPromoError('');
+    } else {
+      setPromoError('Invalid promo code. Use LACHQ10 for 10% off.');
+    }
+  };
 
   // DVLA Plate Lookup
   const handleRegLookup = async (e) => {
@@ -229,7 +270,9 @@ function BookingContent() {
   }
 
   const comboDiscount = selectedService === 'Combo' ? Math.round(subtotal * 0.15) : 0;
-  const estimatedTotal = subtotal - comboDiscount;
+  const afterCombo = subtotal - comboDiscount;
+  const promoDiscount = appliedPromo ? Math.round(afterCombo * (appliedPromo.discountPct / 100)) : 0;
+  const estimatedTotal = afterCombo - promoDiscount;
   const depositDue = selectedService === 'Custom Parts' ? 0 : 50;
   const remainingBalance = Math.max(0, estimatedTotal - depositDue);
 
@@ -290,8 +333,17 @@ function BookingContent() {
           <div className="section-label">/ BOOK AN INSTALLATION</div>
           <h1 className={styles.pageTitle}>Lock In Your Transformation</h1>
           <p className={styles.pageSubtitle}>
-            Hand-built in Chadwell Heath. Secure your date with a £50 deposit (deducted from total on the day).
+            Hand-built in Rainham. Secure your date with a £50 deposit (deducted from total on the day).
           </p>
+        </div>
+
+        {/* Workshop Address Alert Banner */}
+        <div className={styles.noticeBanner}>
+          <span className={styles.noticeTag}>HEADS UP</span>
+          <span>
+            Once booked, you&apos;ll receive confirmation details with workshop directions to our new HQ &mdash;{' '}
+            <strong>Unit 15, Rainham, RM13 8HZ</strong>.
+          </span>
         </div>
 
         {/* Step Progress Indicator (Steps 1 - 3) */}
@@ -619,7 +671,7 @@ function BookingContent() {
               <div className={styles.cardHeader}>
                 <div className={styles.cardTitle}>Select Installation Date &amp; Arrival Slot</div>
                 <div className={styles.cardSubtitle}>
-                  Our Chadwell Heath workshop operates Monday to Saturday.
+                  Our Rainham workshop operates Monday to Saturday.
                 </div>
               </div>
 
@@ -952,6 +1004,62 @@ function BookingContent() {
                     </div>
                   )}
 
+                  {appliedPromo && promoDiscount > 0 && (
+                    <div className={`${styles.totalsRow} ${styles.discountRow}`}>
+                      <span>Promo Discount ({appliedPromo.code})</span>
+                      <span>-£{promoDiscount}</span>
+                    </div>
+                  )}
+
+                  {/* Promo Code Box */}
+                  <div className={styles.promoBox}>
+                    <div className={styles.promoInputRow}>
+                      <input
+                        type="text"
+                        placeholder="PROMO CODE"
+                        value={promoInput}
+                        onChange={(e) => {
+                          setPromoInput(e.target.value.toUpperCase());
+                          setPromoError('');
+                        }}
+                        className={styles.promoInput}
+                        aria-label="Promo code"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleApplyPromo}
+                        className={styles.promoApplyBtn}
+                      >
+                        Apply
+                      </button>
+                    </div>
+                    {appliedPromo && (
+                      <div className={styles.promoSuccess}>
+                        ✓ {appliedPromo.label} applied!
+                      </div>
+                    )}
+                    {promoError && <div className={styles.promoError}>{promoError}</div>}
+                    {!appliedPromo && !promoError && (
+                      <div className={styles.promoHint}>
+                        Tip: Click{' '}
+                        <span
+                          className={styles.promoHintCode}
+                          onClick={() => {
+                            setPromoInput('LACHQ10');
+                            setAppliedPromo({
+                              code: 'LACHQ10',
+                              discountPct: 10,
+                              label: 'Grand Opening (10% Off)',
+                            });
+                          }}
+                        >
+                          LACHQ10
+                        </span>{' '}
+                        for 10% grand opening discount
+                      </div>
+                    )}
+                  </div>
+
                   <div className={`${styles.totalsRow} ${styles.totalRowFinal}`}>
                     <span>Estimated Total</span>
                     <span>£{estimatedTotal}</span>
@@ -970,7 +1078,7 @@ function BookingContent() {
 
                 <div className={styles.trustBadgeRow}>
                   <ShieldCheck size={18} className="neon-text" />
-                  <span>Protected by LAC Lifetime Workmanship Guarantee</span>
+                  <span>Protected by LAC 12-Month Workmanship Warranty</span>
                 </div>
               </div>
             </div>
@@ -1029,8 +1137,8 @@ function BookingContent() {
 
                 <div className={styles.receiptItem}>
                   <div className={styles.receiptLabel}>Workshop Location</div>
-                  <div className={styles.receiptVal}>London Automotive Customs</div>
-                  <div className={styles.receiptSub}>397 Whalebone Lane, Chadwell Heath, RM6 6RH</div>
+                  <div className={styles.receiptVal}>London Automotive Customs HQ</div>
+                  <div className={styles.receiptSub}>Unit 15, Rainham, London RM13 8HZ</div>
                 </div>
               </div>
 
@@ -1051,7 +1159,7 @@ function BookingContent() {
                 </a>
 
                 <a
-                  href="https://maps.google.com/?q=397+Whalebone+Lane+Chadwell+Heath+RM6+6RH"
+                  href="https://maps.google.com/?q=Unit+15+Rainham+RM13+8HZ"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary"

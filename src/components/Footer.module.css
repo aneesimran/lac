@@ -229,6 +229,19 @@
   color: var(--text-dim);
 }
 
+.adminLink {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 0.75rem;
+  color: #52525b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.adminLink:hover {
+  color: #a1a1aa;
+}
+
 /* Bottom Bar */
 .bottomBar {
   display: flex;

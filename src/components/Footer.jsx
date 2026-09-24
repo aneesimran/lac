@@ -1,9 +1,18 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Phone, Clock, Instagram, Send, ShieldCheck, Sparkles } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { MapPin, Phone, Clock, Instagram, Send, ShieldCheck, Sparkles, Mail } from 'lucide-react';
 import styles from './Footer.module.css';
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <footer className={styles.footer} id="contact">
       <div className="container">
@@ -11,11 +20,11 @@ export default function Footer() {
         <div className={styles.locationBanner}>
           <div className={styles.bannerBadge}>
             <span className="badge-dot"></span>
-            <span>CHADWELL HEATH WORKSHOP</span>
+            <span>RAINHAM HQ WORKSHOP</span>
           </div>
           <div className={styles.expansionBadge}>
             <Sparkles size={14} />
-            <span>2ND LOCATION · COMING SOON</span>
+            <span>UNIT 15 · RAINHAM RM13 8HZ</span>
           </div>
         </div>
 
@@ -114,10 +123,10 @@ export default function Footer() {
                 <div>
                   <div className={styles.contactLabel}>Location</div>
                   <div className={styles.contactValue}>
-                    397 Whalebone Lane, Chadwell Heath, London RM6 6RH
+                    Unit 15, Rainham, London RM13 8HZ
                   </div>
                   <a
-                    href="https://maps.google.com/?q=397+Whalebone+Lane+Chadwell+Heath+RM6+6RH"
+                    href="https://maps.google.com/?q=Unit+15+Rainham+RM13+8HZ"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.mapLink}
@@ -136,6 +145,13 @@ export default function Footer() {
                     <br />
                     <span className={styles.dimText}>Sunday: Closed (By Appointment Only)</span>
                   </div>
+                  <Link
+                    href="/admin/login"
+                    data-testid="footer-admin-link"
+                    className={styles.adminLink}
+                  >
+                    Admin portal
+                  </Link>
                 </div>
               </div>
 
@@ -145,6 +161,16 @@ export default function Footer() {
                   <div className={styles.contactLabel}>Phone & WhatsApp</div>
                   <a href="tel:+447538963090" className={styles.phoneLink}>
                     +44 7538 963090
+                  </a>
+                </div>
+              </div>
+
+              <div className={styles.contactItem}>
+                <Mail size={20} className={styles.contactIcon} />
+                <div>
+                  <div className={styles.contactLabel}>Email</div>
+                  <a href="mailto:lac.ltd24@gmail.com" className={styles.phoneLink}>
+                    lac.ltd24@gmail.com
                   </a>
                 </div>
               </div>

@@ -1,0 +1,339 @@
+.section {
+  padding: 5rem 0;
+  position: relative;
+  z-index: 10;
+}
+
+.lookupCard {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: radial-gradient(circle at 80% 20%, rgba(217, 70, 239, 0.08) 0%, rgba(12, 12, 18, 0.95) 70%), #0a0a10;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(217, 70, 239, 0.08);
+  overflow: hidden;
+}
+
+.topBadgeRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.startBadge {
+  background: var(--accent-pink);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.quoteLabel {
+  color: var(--accent-pink);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+}
+
+.cardFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .cardFlex {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.infoCol {
+  flex: 1;
+  max-width: 520px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.titleGlow {
+  color: #22d3ee;
+  text-shadow: 0 0 25px rgba(34, 211, 238, 0.4);
+}
+
+.subtitle {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.subtitleHighlight {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ────────────────── UK NUMBER PLATE ────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .form {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+  }
+}
+
+.plateContainer {
+  display: flex;
+  align-items: stretch;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 30px rgba(255, 213, 0, 0.25), 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.euroBand {
+  background: #003399;
+  color: #ffffff;
+  padding: 0 0.65rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  user-select: none;
+}
+
+.euroStars {
+  color: #ffd500;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.euroCode {
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.plateInput {
+  background: #ffd500;
+  color: #000000;
+  font-family: var(--font-display), 'Outfit', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.25rem;
+  width: 100%;
+  min-width: 220px;
+  outline: none;
+  border: none;
+}
+
+.plateInput::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+  font-weight: 800;
+}
+
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1.05rem 1.75rem;
+  border-radius: 9999px;
+  background: var(--accent-pink);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: var(--accent-violet);
+  box-shadow: 0 0 25px rgba(217, 70, 239, 0.5);
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ────────────────── DVLA MATCH PREVIEW ────────────────── */
+.matchPreview {
+  margin-top: 2rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(217, 70, 239, 0.35);
+  background: rgba(217, 70, 239, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .matchPreview {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.matchLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.matchIconWrapper {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: rgba(217, 70, 239, 0.15);
+  border: 1px solid rgba(217, 70, 239, 0.3);
+  color: var(--accent-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.matchTag {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  color: var(--accent-pink);
+  margin-bottom: 0.25rem;
+}
+
+.matchTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.matchMeta {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-top: 0.25rem;
+}
+
+.continueBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  background: var(--accent-pink);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.continueBtn:hover {
+  background: var(--accent-violet);
+  box-shadow: 0 0 25px rgba(217, 70, 239, 0.5);
+}
+
+/* ────────────────── FALLBACK BANNER ────────────────── */
+.fallbackBanner {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  background: rgba(234, 179, 8, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .fallbackBanner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.fallbackText {
+  color: #e4e4e7;
+  font-size: 0.9rem;
+}
+
+.fallbackContinueBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #000000;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.fallbackContinueBtn:hover {
+  background: #e4e4e7;
+}
+
+/* ────────────────── PRIVACY NOTE ────────────────── */
+.disclaimer {
+  margin-top: 1.75rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.5;
+}

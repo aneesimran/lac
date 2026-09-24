@@ -1,10 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import styles from './WhatsAppButton.module.css';
 
 export default function WhatsAppButton() {
+  const pathname = usePathname();
   const [hovered, setHovered] = useState(false);
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <div className={styles.wrapper}>

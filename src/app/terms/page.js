@@ -28,17 +28,22 @@ export default function TermsPage() {
             <section className={styles.section}>
               <h2 className={styles.sectionHeading}>1. Booking &amp; £50 Deposit Policy</h2>
               <p>
-                To reserve a dedicated installation slot at our Chadwell Heath workshop, a £50 deposit
-                is required at the time of online booking. This deposit confirms your time with our
+                To reserve a dedicated installation slot at our Rainham workshop (Unit 15, Rainham, RM13 8HZ),
+                a £50 deposit is required at the time of online booking. This deposit confirms your time with our
                 specialist technicians and is directly deducted from the total balance due on the day of
                 completion.
+              </p>
+              <p>
+                The deposit will only be refunded in full if London Automotive Customs Ltd (&quot;LAC&quot;) is
+                unable to complete your booking (e.g. workshop unavailability or equipment fault). In other cases,
+                the deposit secures your bay allocation.
               </p>
             </section>
 
             <section className={styles.section}>
               <h2 className={styles.sectionHeading}>2. Rescheduling &amp; Cancellations</h2>
               <p>
-                We understand schedules change. You may reschedule or cancel your appointment free of
+                We understand schedules change. You may reschedule your appointment free of
                 charge up to <strong>48 hours</strong> prior to your confirmed arrival time.
               </p>
               <p>
@@ -70,11 +75,40 @@ export default function TermsPage() {
             </section>
 
             <section className={styles.section}>
-              <h2 className={styles.sectionHeading}>5. Lifetime Workmanship Guarantee</h2>
+              <h2 className={styles.sectionHeading}>5. 12-Month Workmanship Warranty</h2>
               <p>
-                Every starlight headliner and ambient lighting build is backed by our aftercare
-                guarantee. In the rare event that a fibre strand shifts or a component requires
-                recalibration, we provide swift in-house adjustments free of charge.
+                All ambient and starlight installations carry a 12-month comprehensive workmanship warranty
+                from the install date. The warranty covers all fitting and wiring; it excludes damage from accidents,
+                tampering, or unauthorised third-party modifications. If any issue arises within 12 months,
+                we diagnose and rectify it promptly free of charge.
+              </p>
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionHeading}>6. Data &amp; Privacy (DVLA Lookups)</h2>
+              <p>
+                We collect your name, email, phone, vehicle, and booking details solely to process your booking
+                and prepare your install. Vehicle registration lookups are performed via UK vehicle records
+                only to verify fitment and package compatibility. You may request deletion of your booking record
+                at any time by emailing{' '}
+                <a href="mailto:lac.ltd24@gmail.com" className="neon-text">
+                  lac.ltd24@gmail.com
+                </a>
+                .
+              </p>
+            </section>
+
+            <section className={styles.section}>
+              <h2 className={styles.sectionHeading}>7. Workshop Location &amp; Contact</h2>
+              <p>
+                London Automotive Customs Ltd &bull; Unit 15, Rainham, RM13 8HZ &bull; Phone:{' '}
+                <a href="tel:+447538963090" className="neon-text">
+                  +44 7538 963090
+                </a>{' '}
+                &bull; Email:{' '}
+                <a href="mailto:lac.ltd24@gmail.com" className="neon-text">
+                  lac.ltd24@gmail.com
+                </a>
               </p>
             </section>
           </div>
@@ -82,7 +116,7 @@ export default function TermsPage() {
           <div className={styles.cardFooter}>
             <div className={styles.guaranteeText}>
               <ShieldCheck size={20} className="neon-text" />
-              <span>Have any questions regarding our terms? WhatsApp us directly at +44 7538 963090.</span>
+              <span>Questions? WhatsApp +44 7538 963090 or email lac.ltd24@gmail.com.</span>
             </div>
             <Link href="/booking" className="btn-primary">
               <span>Continue Booking</span>

@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Sparkles, ArrowRight, Play, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Camera, Play, ExternalLink, Sparkles, Film } from 'lucide-react';
 import styles from './gallery.module.css';
 
-const galleryItems = [
+const workshopItems = [
   {
     id: 1,
     title: 'Mercedes A250 AMG Line',
@@ -70,103 +70,169 @@ const galleryItems = [
 ];
 
 export default function GalleryPage() {
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeTab, setActiveTab] = useState('pov'); // 'pov' | 'workshop'
+  const [customerItems, setCustomerItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredItems =
-    activeFilter === 'All'
-      ? galleryItems
-      : galleryItems.filter(
-          (item) =>
-            item.category === activeFilter ||
-            item.service === activeFilter
-        );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    fetch('/api/gallery')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setCustomerItems(data);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const isImage = (url) => /\.(jpe?g|png|webp|gif|heic)(?:\?.*)?$/i.test(url);
 
   return (
     <div className={styles.galleryPage}>
-      <div className="container">
-        <div className={styles.header}>
-          <div className="section-label">/ PORTFOLIO SHOWCASE</div>
-          <h1 className={styles.title}>Crafted in Chadwell Heath</h1>
-          <p className={styles.subtitle}>
-            Explore our latest starlight headliners, OEM screen-integrated ambient lighting, and custom
-            automotive builds.
-          </p>
-        </div>
+      <div className={styles.container}>
+        <Link href="/" className={styles.backLink} data-testid="gallery-back">
+          <ArrowLeft size={16} /> Back home
+        </Link>
 
-        {/* Filter Pills */}
-        <div className={styles.filtersRow}>
-          {['All', 'Starlights', 'Ambient Lighting', 'Mercedes', 'BMW', 'Tesla', 'Audi'].map(
-            (tab) => (
-              <button
-                key={tab}
-                type="button"
-                className={`${styles.filterBtn} ${activeFilter === tab ? styles.filterActive : ''}`}
-                onClick={() => setActiveFilter(tab)}
-              >
-                {tab}
-              </button>
-            )
-          )}
-        </div>
-
-        {/* Gallery Grid */}
-        <div className={styles.grid}>
-          {filteredItems.map((item) => (
-            <div key={item.id} className={`glass-card ${styles.card}`}>
-              <div className={styles.imgWrapper}>
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className={styles.img}
-                />
-                <span className={styles.serviceBadge}>{item.service}</span>
-              </div>
-
-              <div className={styles.cardBody}>
-                <div className={styles.itemTitle}>{item.title}</div>
-                <div className={styles.itemSpecs}>{item.specs}</div>
-
-                <div className={styles.cardActions}>
-                  <Link
-                    href={`/booking?service=${encodeURIComponent(item.service)}`}
-                    className={styles.bookSimilarLink}
-                  >
-                    <span>Book similar build</span>
-                    <ArrowRight size={15} />
-                  </Link>
-
-                  {item.tiktok && (
-                    <a
-                      href={item.tiktok}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.tiktokLink}
-                      aria-label="View on TikTok"
-                    >
-                      <Play size={14} fill="currentColor" />
-                      <span>TikTok</span>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className={styles.bottomBanner}>
+        {/* Header Grid */}
+        <div className={styles.headerGrid}>
           <div>
-            <h2 className={styles.bannerTitle}>Ready to transform your interior?</h2>
-            <p className={styles.bannerSubtitle}>
-              Lock in your Chadwell Heath date with just a £50 deposit.
+            <div className={styles.sectionTag}>CUSTOMER GALLERY</div>
+            <h1 className={styles.title}>
+              Built by LAC.
+              <br />
+              <span className={styles.neonViolet}>Filmed by customers.</span>
+            </h1>
+            <p className={styles.subtitle}>
+              Real cars, real customers. Every clip and photo below was sent in by someone who came
+              through the workshop. Want yours up here? Send it in.
             </p>
           </div>
-          <Link href="/booking" className="btn-primary">
-            <span>Book Your Build</span>
-            <ArrowRight size={18} />
-          </Link>
+
+          <div className={styles.headerCtaWrapper}>
+            <Link
+              href="/gallery/submit"
+              data-testid="gallery-submit-cta"
+              className={styles.submitCtaBtn}
+            >
+              Submit yours <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
+
+        {/* View Toggle Tabs */}
+        <div className={styles.tabsRow}>
+          <button
+            type="button"
+            onClick={() => setActiveTab('pov')}
+            className={`${styles.tabBtn} ${activeTab === 'pov' ? styles.tabActive : ''}`}
+          >
+            <Camera size={15} /> Customer POVs ({customerItems.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('workshop')}
+            className={`${styles.tabBtn} ${activeTab === 'workshop' ? styles.tabActive : ''}`}
+          >
+            <Sparkles size={15} /> Workshop Builds ({workshopItems.length})
+          </button>
+        </div>
+
+        {/* Customer POV Tab */}
+        {activeTab === 'pov' && (
+          <>
+            {loading ? (
+              <div style={{ color: '#71717a', fontSize: '0.9rem', padding: '30px 0' }}>
+                Loading gallery…
+              </div>
+            ) : customerItems.length === 0 ? (
+              <div className={styles.emptyState} data-testid="gallery-empty">
+                <Camera size={44} className={styles.emptyIcon} />
+                <h3 className={styles.emptyTitle}>Gallery&apos;s just opened.</h3>
+                <p className={styles.emptyText}>
+                  Be the first customer to send us your install — we&apos;ll feature you right here.
+                </p>
+                <Link href="/gallery/submit" className={styles.emptyBtn}>
+                  Send my POV <ArrowRight size={16} />
+                </Link>
+              </div>
+            ) : (
+              <div className={styles.customerGrid} data-testid="gallery-grid">
+                {customerItems.map((item) => {
+                  const hasImage = isImage(item.media_url);
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.media_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid={`gallery-item-${item.id}`}
+                      className={styles.povCard}
+                    >
+                      <div className={styles.povMedia}>
+                        {hasImage ? (
+                          <img
+                            src={item.media_url}
+                            alt={`${item.name}'s LAC install`}
+                            loading="lazy"
+                            className={styles.povImg}
+                          />
+                        ) : (
+                          <div className={styles.videoPlaceholder}>
+                            <div className={styles.videoPlayIcon}>
+                              <Play size={20} fill="#d946ef" />
+                            </div>
+                            <div className={styles.videoLabel}>TAP TO WATCH</div>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className={styles.povInfo}>
+                        <div className={styles.povName}>{item.name}</div>
+                        {item.vehicle && <div className={styles.povVehicle}>{item.vehicle}</div>}
+                        {item.note && <p className={styles.povNote}>{item.note}</p>}
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Workshop Builds Tab */}
+        {activeTab === 'workshop' && (
+          <div className={styles.workshopGrid}>
+            {workshopItems.map((item) => (
+              <div key={item.id} className={styles.workshopCard}>
+                <div className={styles.workshopImgBox}>
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <span className={styles.workshopBadge}>{item.service}</span>
+                </div>
+                <div className={styles.workshopInfo}>
+                  <h3 className={styles.workshopTitle}>{item.title}</h3>
+                  <p className={styles.workshopSpecs}>{item.specs}</p>
+                  <a
+                    href={item.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.workshopAction}
+                  >
+                    Watch video on TikTok <ExternalLink size={13} />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

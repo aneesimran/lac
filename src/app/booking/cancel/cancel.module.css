@@ -1,0 +1,94 @@
+.cancelPage {
+  min-height: 100vh;
+  background-color: #050505;
+  color: #ffffff;
+  padding-top: 150px;
+  padding-bottom: 96px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.cancelBadge {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f87171;
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.description {
+  color: #a1a1aa;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.retryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  background: #d946ef;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 24px rgba(217, 70, 239, 0.35);
+}
+
+.retryBtn:hover {
+  background: #f0abfc;
+  color: #000000;
+  box-shadow: 0 0 32px rgba(217, 70, 239, 0.55);
+}
+
+.waBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.waBtn:hover {
+  border-color: #25d366;
+  color: #25d366;
+  background: rgba(37, 211, 102, 0.08);
+}

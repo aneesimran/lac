@@ -17,6 +17,8 @@ import {
   Layers,
 } from 'lucide-react';
 import BrandVideoModal from '@/components/BrandVideoModal';
+import RegLookup from '@/components/RegLookup';
+import TikTokFeed from '@/components/TikTokFeed';
 import styles from './page.module.css';
 
 /* ──────────────────────────────────────────
@@ -86,21 +88,33 @@ const services = [
 const carBrands = [
   {
     name: 'Tesla',
+    direct: true,
+    thumbnail:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/citjybw1_IMG_9910.MOV',
+    poster:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/jktv5bxu_IMG_0450.jpeg',
     videos: [
-      'https://www.tiktok.com/@lac.ltd',
-      'https://www.tiktok.com/@lac.ltd',
-      'https://www.tiktok.com/@lac.ltd',
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/citjybw1_IMG_9910.MOV',
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/eb0as2le_IMG_9909.MOV',
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/dhdw0m24_IMG_9906.MOV',
     ],
   },
   {
     name: 'Range Rover',
+    direct: true,
+    thumbnail:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/b9xziq2f_IMG_6218.MOV',
+    poster:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/izqcl26x_IMG_0427.jpeg',
     videos: [
-      'https://www.tiktok.com/@lac.ltd',
-      'https://www.tiktok.com/@lac.ltd',
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/b9xziq2f_IMG_6218.MOV',
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/vfqvrh7i_IMG_6225.MOV',
     ],
   },
   {
     name: 'Mercedes',
+    thumbnail:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/s7meftz2_Screenshot%202026-05-15%20at%2016.31.29.png',
     videos: [
       'https://vm.tiktok.com/ZNRpCdmsq/',
       'https://vm.tiktok.com/ZNRpQoEqd/',
@@ -113,6 +127,8 @@ const carBrands = [
   },
   {
     name: 'BMW',
+    thumbnail:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/h5lng0fn_IMG_0282.PNG',
     videos: [
       'https://vm.tiktok.com/ZNRpCDpnV/',
       'https://vm.tiktok.com/ZNRpCf7Lw/',
@@ -125,6 +141,8 @@ const carBrands = [
   },
   {
     name: 'Audi',
+    thumbnail:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/izqcl26x_IMG_0427.jpeg',
     videos: [
       'https://vm.tiktok.com/ZNRpC2uuX/',
       'https://vm.tiktok.com/ZNRpCR7GP/',
@@ -137,6 +155,8 @@ const carBrands = [
   },
   {
     name: 'Volkswagen',
+    thumbnail:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/zj8tp4v7_IMG_0409.jpeg',
     videos: [
       'https://vm.tiktok.com/ZNRpCkBbH/',
       'https://vm.tiktok.com/ZNRpCD4pC/',
@@ -148,6 +168,8 @@ const carBrands = [
   },
   {
     name: 'Porsche',
+    thumbnail:
+      'https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/jktv5bxu_IMG_0450.jpeg',
     videos: [
       'https://vm.tiktok.com/ZNRpCFxLv/',
       'https://vm.tiktok.com/ZNRpC1unc/',
@@ -155,6 +177,8 @@ const carBrands = [
   },
   {
     name: 'Ford',
+    thumbnail:
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?fm=jpg&q=80&w=800&auto=format&fit=crop',
     videos: [
       'https://vm.tiktok.com/ZNRpC69XQ/',
       'https://vm.tiktok.com/ZNRpC8Swo/',
@@ -163,6 +187,8 @@ const carBrands = [
   },
   {
     name: 'Vauxhall',
+    thumbnail:
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?fm=jpg&q=80&w=800&auto=format&fit=crop',
     videos: [
       'https://vm.tiktok.com/ZNRpC6go3/',
       'https://vm.tiktok.com/ZNRpCPdJR/',
@@ -187,7 +213,7 @@ const trustCards = [
     icon: Sparkles,
     title: 'Designed in London',
     description:
-      'Hand-built by enthusiasts with hundreds of documented installs on TikTok @lac.ltd right here in Chadwell Heath.',
+      'Hand-built by enthusiasts with hundreds of documented installs on TikTok @lac.ltd right here in Rainham.',
   },
   {
     icon: Check,
@@ -200,20 +226,27 @@ const trustCards = [
 const timeline = [
   {
     step: '01',
+    label: 'The beginning',
+    title: 'Kicked out, kit in hand',
+    description:
+      'LAC started from a boy who got kicked out of secondary school. No workshop, no funding — just a starter kit, an A-Class, and a stubborn refusal to give up.',
+  },
+  {
+    step: '02',
     label: 'Year one',
     title: 'Self-taught, car by car',
     description:
       'Every install was a lesson. Every TikTok was a portfolio entry. Friends became customers, customers became referrals, and the quality kept climbing.',
   },
   {
-    step: '02',
+    step: '03',
     label: 'Today',
     title: 'OEM-grade craft',
     description:
       'From single fibre strips to full constellation roofs and Mercedes screen-integrated ambient — the standard keeps rising. Every car better than the last.',
   },
   {
-    step: '03',
+    step: '04',
     label: "What's next",
     title: 'A new chapter',
     description:
@@ -318,7 +351,7 @@ export default function Home() {
             {/* Pill Badge */}
             <div className={styles.heroBadge}>
               <span className="badge-dot"></span>
-              <span>NOW BOOKING &bull; CHADWELL HEATH</span>
+              <span>NOW BOOKING &bull; RAINHAM</span>
             </div>
 
             {/* Main Headline */}
@@ -330,7 +363,7 @@ export default function Home() {
 
             {/* Subtext */}
             <p className={styles.heroSubtitle}>
-              Ambient lighting specialists &bull; Chadwell Heath, East London. Bespoke starlight
+              Ambient lighting specialists &bull; Rainham, East London. Bespoke starlight
               headliners, multi-zone ambient lighting, and custom parts — fitted by enthusiasts,
               finished like factory.
             </p>
@@ -345,9 +378,30 @@ export default function Home() {
                 <span>Explore services</span>
               </a>
             </div>
+
+            {/* Quick Hero Metrics */}
+            <div className={styles.heroStatsBar}>
+              <div className={styles.heroStatItem}>
+                <div className={styles.heroStatNumber}>1000+</div>
+                <div className={styles.heroStatLabel}>installs</div>
+              </div>
+              <div className={styles.heroStatDivider}></div>
+              <div className={styles.heroStatItem}>
+                <div className={styles.heroStatNumber}>4.9★</div>
+                <div className={styles.heroStatLabel}>customer rating</div>
+              </div>
+              <div className={styles.heroStatDivider}></div>
+              <div className={styles.heroStatItem}>
+                <div className={styles.heroStatNumber}>2–3h</div>
+                <div className={styles.heroStatLabel}>turnaround</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ────────────────── REG LOOKUP SECTION ────────────────── */}
+      <RegLookup />
 
       {/* ────────────────── SERVICES SECTION ────────────────── */}
       <section className={styles.section} id="services">
@@ -449,14 +503,34 @@ export default function Home() {
             {carBrands.map((brand) => (
               <div
                 key={brand.name}
+                data-testid={`brand-${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
                 className={styles.brandCard}
                 onClick={() => setSelectedBrand(brand)}
               >
+                {brand.direct ? (
+                  <video
+                    src={brand.videos[0]}
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                    preload="metadata"
+                    className={styles.brandMedia}
+                  />
+                ) : (
+                  <img
+                    src={brand.thumbnail}
+                    alt={`${brand.name} install`}
+                    loading="lazy"
+                    className={styles.brandMedia}
+                  />
+                )}
+                <div className={styles.brandOverlay} />
                 <div className={styles.brandCardInner}>
                   <div className={styles.brandName}>{brand.name}</div>
                   <div className={styles.brandVideos}>
                     <span>{brand.videos.length} videos</span>
-                    <Play size={12} fill="currentColor" />
+                    <Play size={10} fill="currentColor" />
                   </div>
                 </div>
               </div>
@@ -509,7 +583,7 @@ export default function Home() {
           <div className={styles.sectionHeader}>
             <div className="section-label">/ 03 — OUR STORY</div>
             <h2 className={styles.sectionTitle}>
-              From a driveway in Chadwell Heath to East London&apos;s go-to custom shop.
+              From a driveway to East London&apos;s go-to custom shop.
             </h2>
             <p className={styles.sectionSubtitle}>
               Built on word-of-mouth, meticulous attention to detail, and a genuine obsession with car culture.
@@ -549,15 +623,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ────────────────── RECENT WORK / TIKTOK FEED ────────────────── */}
+      <TikTokFeed />
+
       {/* ────────────────── GOOGLE REVIEWS ────────────────── */}
       <section className={styles.section}>
         <div className="container">
-          <div className={styles.sectionHeader}>
-            <div className="section-label">/ 04 — GOOGLE REVIEWS</div>
-            <h2 className={styles.sectionTitle}>Real customers. Five stars.</h2>
-            <p className={styles.sectionSubtitle}>
-              Don&apos;t just take our word for it. Read verified reviews from drivers across London and Essex.
-            </p>
+          <div className={styles.sectionHeaderFlex}>
+            <div>
+              <div className="section-label">/ 04 — GOOGLE REVIEWS</div>
+              <h2 className={styles.sectionTitle}>Real customers. Five stars.</h2>
+              <p className={styles.sectionSubtitle}>
+                Don&apos;t just take our word for it. Read verified reviews from drivers across London and Essex.
+              </p>
+            </div>
+            <a
+              href="https://share.google/LlicaWLghMbT2urbY"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="google-reviews-cta"
+              className={styles.seeAllGoogleLink}
+            >
+              <span>See all on Google</span>
+              <ArrowRight size={16} />
+            </a>
           </div>
 
           <div className={styles.reviewsGrid}>
@@ -645,9 +734,13 @@ export default function Home() {
               Pick a date.
             </h2>
             <p className={styles.ctaDesc}>
-              Slots fill up fast every month. Secure your installation date in Chadwell Heath with just
-              a £50 deposit.
+              Slots fill up fast every month. Secure your installation date at our new HQ — Unit 15,
+              Rainham, RM13 8HZ with just a £50 deposit.
             </p>
+            <div className={styles.ctaPromoPill}>
+              <span className={styles.ctaPromoCode}>LACHQ10</span>
+              <span>Grand opening &bull; Use code for 10% off</span>
+            </div>
             <Link href="/booking" className={`btn-primary ${styles.ctaBtn}`}>
               <span>Book Your Install Online</span>
               <ArrowRight size={20} />

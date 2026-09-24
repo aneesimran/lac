@@ -9,53 +9,112 @@ export default function BrandVideoModal({ brand, onClose }) {
 
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeBtn} onClick={onClose} aria-label="Close modal">
+      <div
+        className={styles.modal}
+        onClick={(e) => e.stopPropagation()}
+        data-testid="brand-modal"
+      >
+        <button
+          className={styles.closeBtn}
+          onClick={onClose}
+          aria-label="Close modal"
+        >
           <X size={20} />
         </button>
 
+        {/* Modal Header */}
         <div className={styles.header}>
-          <div className={styles.badge}>PORTFOLIO SPOTLIGHT</div>
+          <div className={styles.badge}>
+            {brand.direct ? 'FROM THE LAC WORKSHOP' : '@LAC.LTD ON TIKTOK'}
+          </div>
           <h3 className={styles.title}>{brand.name} Installs</h3>
           <p className={styles.subtitle}>
-            Watch real {brand.name} transformations completed at our Chadwell Heath workshop.
+            {brand.videos?.length} {brand.direct ? 'clips' : 'reels'} &mdash; tap to{' '}
+            {brand.direct ? 'play with sound' : 'watch on TikTok'}.
           </p>
         </div>
 
-        <div className={styles.videoList}>
-          {brand.videos?.map((vid, idx) => (
-            <div key={idx} className={styles.videoCard}>
-              <div className={styles.videoHeader}>
-                <div className={styles.playIconWrapper}>
-                  <Play size={16} fill="currentColor" />
-                </div>
-                <div className={styles.videoInfo}>
-                  <div className={styles.videoName}>
-                    {brand.name} Build #{idx + 1}
+        {/* Scrollable 9:16 Vertical Video Grid */}
+        <div className={styles.scrollArea}>
+          <div className={styles.videoGrid}>
+            {brand.videos?.map((vid, idx) => {
+              if (brand.direct) {
+                return (
+                  <div
+                    key={idx}
+                    className={styles.reelCard}
+                    data-testid={`brand-video-${idx}`}
+                  >
+                    <video
+                      src={vid}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      className={styles.directPlayer}
+                    />
+                    <div className={styles.reelBadge}>#{idx + 1}</div>
                   </div>
-                  <div className={styles.videoMeta}>Hand-fitted &bull; Chadwell Heath</div>
-                </div>
-              </div>
-              <a
-                href={vid}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.watchLink}
-              >
-                <span>Watch on TikTok</span>
-                <ExternalLink size={14} />
-              </a>
-            </div>
-          ))}
+                );
+              }
+
+              return (
+                <a
+                  key={idx}
+                  href={vid}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid={`brand-video-${idx}`}
+                  className={styles.reelCard}
+                >
+                  {/* Poster Thumbnail */}
+                  <img
+                    src={brand.thumbnail}
+                    alt={`${brand.name} install #${idx + 1}`}
+                    loading="lazy"
+                    className={styles.cardPoster}
+                  />
+
+                  {/* Gradient Overlay */}
+                  <div className={styles.cardGradient} />
+
+                  {/* Top Build Badge */}
+                  <div className={styles.reelBadge}>#{idx + 1}</div>
+
+                  {/* Center Play Button */}
+                  <div className={styles.centerPlayBtn}>
+                    <div className={styles.playCircle}>
+                      <Play
+                        size={22}
+                        fill="currentColor"
+                        className={styles.playIconShift}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Card Bottom Meta */}
+                  <div className={styles.cardFooterInfo}>
+                    <div className={styles.buildTitle}>
+                      {brand.name} Build #{idx + 1}
+                    </div>
+                    <div className={styles.watchMeta}>
+                      <span>Watch on TikTok</span>
+                      <ExternalLink size={13} />
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
         </div>
 
-        <div className={styles.footer}>
-          <div className={styles.footerText}>
-            Own a {brand.name}? Transform yours next.
+        {/* Modal Footer */}
+        <div className={styles.modalFooter}>
+          <div className={styles.footerPrompt}>
+            Own a <strong>{brand.name}</strong>? Transform yours next.
           </div>
           <Link
             href={`/booking?brand=${encodeURIComponent(brand.name)}`}
-            className="btn-primary"
+            className={styles.bookBtn}
             onClick={onClose}
           >
             <span>Book for your {brand.name}</span>

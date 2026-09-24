@@ -21,13 +21,13 @@ const manrope = Manrope({
 
 export const metadata = {
   metadataBase: new URL('https://lac-ltd.co.uk'),
-  title: 'London Automotive Customs · Starlights, Ambient Lighting & Custom Parts · Chadwell Heath',
+  title: 'London Automotive Customs · Starlights, Ambient Lighting & Custom Parts · Rainham',
   description:
-    'LAC builds OEM-grade starlight headliners, multi-zone ambient lighting and custom parts for cars in Chadwell Heath, East London. Book your install online with a £50 deposit.',
+    'LAC builds OEM-grade starlight headliners, multi-zone ambient lighting and custom parts for cars in Rainham, East London. Book your install online with a £50 deposit.',
   keywords: [
     'starlight headliner',
     'ambient lighting',
-    'car lighting Chadwell Heath',
+    'car lighting Rainham',
     'LAC',
     'London Automotive Customs',
     'fibre optic headliner',
@@ -42,7 +42,7 @@ export const metadata = {
   openGraph: {
     title: 'Get your car done right the first time — the LAC way.',
     description:
-      'Starlight headliners, multi-zone ambient lighting & custom parts. Hand-fitted in Chadwell Heath, East London. Book online with a £50 deposit.',
+      'Starlight headliners, multi-zone ambient lighting & custom parts. Hand-fitted in Rainham, East London. Book online with a £50 deposit.',
     url: 'https://lac-ltd.co.uk/',
     siteName: 'London Automotive Customs',
     images: [
@@ -60,7 +60,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'London Automotive Customs · @lac.ltd',
     description:
-      'Starlights, ambient lighting & custom parts. Hand-fitted in Chadwell Heath. Book online — £50 deposit.',
+      'Starlights, ambient lighting & custom parts. Hand-fitted in Rainham. Book online — £50 deposit.',
     images: ['https://customer-assets.emergentagent.com/job_lac-customs-booking/artifacts/jktv5bxu_IMG_0450.jpeg'],
   },
 };

@@ -341,6 +341,40 @@
   border-color: rgba(217, 70, 239, 0.4);
 }
 
+/* ─── Ultra-Prominent Combo Tab ─── */
+.comboTab {
+  position: relative;
+  background: linear-gradient(180deg, rgba(217, 70, 239, 0.16) 0%, rgba(18, 18, 28, 0.96) 100%) !important;
+  border: 2px solid #d946ef !important;
+  box-shadow: 0 0 30px rgba(217, 70, 239, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-2px);
+}
+
+.comboTab:hover {
+  border-color: #f0abfc !important;
+  box-shadow: 0 0 40px rgba(217, 70, 239, 0.45) !important;
+  transform: translateY(-4px);
+}
+
+.comboPopularRibbon {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #d946ef 0%, #ff2d87 100%);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 3px 12px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  box-shadow: 0 0 16px rgba(217, 70, 239, 0.8), 0 2px 4px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  z-index: 5;
+}
+
 .tabIcon {
   color: var(--accent-pink);
   margin-bottom: 0.75rem;
@@ -351,7 +385,13 @@
   font-size: 1.05rem;
   font-weight: 800;
   color: #ffffff;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.tabSubtext {
+  font-size: 0.72rem;
+  color: #d4d4d8;
+  margin-bottom: 0.45rem;
 }
 
 .tabBadge {
@@ -361,6 +401,96 @@
   background: rgba(255, 255, 255, 0.06);
   padding: 0.2rem 0.6rem;
   border-radius: 9999px;
+}
+
+.comboBadge {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background: linear-gradient(135deg, #d946ef 0%, #a855f7 100%);
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  box-shadow: 0 0 16px rgba(217, 70, 239, 0.65);
+}
+
+/* ─── Standout Combo Discount Banner ─── */
+.comboBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.25rem 1.75rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(217, 70, 239, 0.16) 0%, rgba(147, 51, 234, 0.1) 100%);
+  border: 1px solid rgba(217, 70, 239, 0.45);
+  box-shadow: 0 0 35px rgba(217, 70, 239, 0.2);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.comboBannerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.comboBannerIconWrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(217, 70, 239, 0.25);
+  color: var(--accent-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.4);
+}
+
+.comboBannerTitle {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.2rem;
+}
+
+.comboBannerDesc {
+  font-size: 0.82rem;
+  color: #a1a1aa;
+}
+
+.comboBannerSavings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(217, 70, 239, 0.2);
+  border: 1px solid rgba(217, 70, 239, 0.4);
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.savingsLabel {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #f0abfc;
+  text-transform: uppercase;
+}
+
+.savingsAmount {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #4ade80;
+  line-height: 1.1;
 }
 
 /* ────────────────── PACKAGES GRID ────────────────── */

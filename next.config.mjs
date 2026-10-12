@@ -19,6 +19,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/vehicle/lookup',
+        destination: '/api/vehicle/lookup',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

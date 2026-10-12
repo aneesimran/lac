@@ -180,18 +180,52 @@ function BookingContent() {
     if (r) {
       const cleanReg = r.trim().toUpperCase().replace(/\s+/g, '');
       setRegInput(cleanReg);
-      if (sampleDvlaCars[cleanReg]) {
-        setVehicle({ ...sampleDvlaCars[cleanReg], reg: cleanReg });
-      } else {
-        const vehicleParam = searchParams.get('vehicle') || 'Customer Car';
-        const makeParam = searchParams.get('make') || 'Vehicle';
+      const vehicleParam = searchParams.get('vehicle');
+      const summaryParam = searchParams.get('summary');
+      const makeParam = searchParams.get('make');
+      const yearParam = searchParams.get('year');
+      const colourParam = searchParams.get('colour');
+      const fuelParam = searchParams.get('fuel');
+      const ccParam = searchParams.get('engine_cc');
+      const motParam = searchParams.get('mot_status');
+
+      if (summaryParam || makeParam || (vehicleParam && !vehicleParam.includes('Custom'))) {
+        const cleanSummary = summaryParam || vehicleParam || '';
         setVehicle({
-          make: makeParam,
-          model: vehicleParam,
-          year: searchParams.get('year') || 'UK Spec',
-          colour: 'Custom',
+          make: makeParam || 'Vehicle',
+          model: '',
+          year: yearParam || '',
+          colour: colourParam && colourParam !== 'Custom' ? colourParam : '',
+          fuel: fuelParam || '',
+          engine_cc: ccParam || '',
+          mot_status: motParam || '',
+          summary: cleanSummary || [makeParam, yearParam, colourParam].filter(Boolean).join(' · '),
           reg: cleanReg,
         });
+      } else {
+        // Query real DVLA details if only ?reg= was passed
+        fetch('/api/vehicle/lookup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reg: cleanReg }),
+        })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (data) {
+              setVehicle({
+                make: data.make,
+                model: '',
+                year: data.year,
+                colour: data.colour,
+                fuel: data.fuel,
+                engine_cc: data.engine_cc,
+                mot_status: data.mot_status,
+                summary: data.summary,
+                reg: cleanReg,
+              });
+            }
+          })
+          .catch(() => {});
       }
     }
     const promo = searchParams.get('promo') || searchParams.get('code');
@@ -223,30 +257,40 @@ function BookingContent() {
     setLookupLoading(true);
     setLookupMessage('');
 
-    // Check mock database first or call lookup
-    setTimeout(() => {
-      if (sampleDvlaCars[cleanReg]) {
-        const car = sampleDvlaCars[cleanReg];
-        setVehicle({ ...car, reg: cleanReg });
+    try {
+      const res = await fetch('/api/vehicle/lookup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reg: cleanReg }),
+      });
+      const data = await res.json();
+      if (res.ok && data) {
+        setVehicle({
+          make: data.make,
+          model: '',
+          year: data.year,
+          colour: data.colour,
+          fuel: data.fuel,
+          engine_cc: data.engine_cc,
+          mot_status: data.mot_status,
+          summary: data.summary,
+          reg: cleanReg,
+        });
         setLookupMessage('');
       } else {
-        // Fallback: Generate smart match for valid-looking UK reg plates
-        if (cleanReg.length >= 4) {
-          setVehicle({
-            make: 'Vehicle',
-            model: `Reg: ${cleanReg}`,
-            year: 'UK Spec',
-            colour: 'Customer Car',
-            reg: cleanReg,
-          });
-          setLookupMessage('');
-        } else {
-          setVehicle(null);
-          setLookupMessage("Couldn't find that registration. You can enter your vehicle manually below.");
-        }
+        setVehicle(null);
+        setLookupMessage(
+          data?.detail === 'vehicle_not_found'
+            ? "Couldn't find that registration on DVLA. Please double check your number plate."
+            : "Lookup unavailable. Please try again."
+        );
       }
+    } catch (err) {
+      console.error('DVLA lookup error in booking:', err);
+      setLookupMessage("Lookup unavailable. Please try again.");
+    } finally {
       setLookupLoading(false);
-    }, 500);
+    }
   };
 
   // Price Calculations
@@ -430,38 +474,32 @@ function BookingContent() {
                   <div className={styles.matchedCarInfo}>
                     <div className={styles.matchedBadge}>DVLA MATCH VERIFIED</div>
                     <div className={styles.matchedTitle}>
-                      {vehicle.make} {vehicle.model} {vehicle.year && `· ${vehicle.year}`} {vehicle.colour && `· ${vehicle.colour}`}
+                      {vehicle.summary ||
+                        [vehicle.make, vehicle.year, vehicle.colour]
+                          .filter(Boolean)
+                          .join(' · ')}
                     </div>
                     {vehicle.fuel && (
                       <div className={styles.matchedMeta}>
-                        {vehicle.fuel} {vehicle.engine_cc ? `· ${vehicle.engine_cc}cc` : ''}
+                        {[
+                          vehicle.fuel,
+                          vehicle.engine_cc ? `${vehicle.engine_cc}cc` : '',
+                        ]
+                          .filter(Boolean)
+                          .join(' · ')}
                       </div>
                     )}
                   </div>
                 </div>
               )}
 
-              {/* Fallback / Manual Input */}
+              {/* Fallback / Error Alert */}
               {lookupMessage && (
                 <div className={styles.lookupAlert}>
                   <AlertCircle size={18} />
                   <span>{lookupMessage}</span>
                 </div>
               )}
-
-              <div className={styles.manualEntryRow}>
-                <span className={styles.orText}>Or enter vehicle model manually:</span>
-                <input
-                  type="text"
-                  placeholder="e.g. BMW M135i 2021 or Mercedes A250"
-                  value={manualVehicle}
-                  onChange={(e) => {
-                    setManualVehicle(e.target.value);
-                    setVehicle({ make: e.target.value, model: '', year: '', colour: '' });
-                  }}
-                  className={styles.manualInput}
-                />
-              </div>
             </div>
 
             {/* 2. Service Selection */}
@@ -475,29 +513,70 @@ function BookingContent() {
                 {[
                   { id: 'Starlights', label: 'Starlights', icon: Sparkles, badge: 'From £400' },
                   { id: 'Ambient Lights', label: 'Ambient Lighting', icon: Zap, badge: 'From £350' },
-                  { id: 'Combo', label: 'Combo (Both)', icon: Layers, badge: 'Save 15%', highlight: true },
+                  {
+                    id: 'Combo',
+                    label: 'Combo (Both)',
+                    icon: Layers,
+                    badge: 'SAVE 15%',
+                    subtext: 'Starlights + Ambient',
+                    highlight: true,
+                  },
                   { id: 'Custom Parts', label: 'Custom Parts', icon: Wrench, badge: 'Consultation' },
                 ].map((tab) => {
                   const Icon = tab.icon;
                   const isSelected = selectedService === tab.id;
+                  const isCombo = tab.id === 'Combo';
                   return (
                     <button
                       key={tab.id}
                       type="button"
                       className={`${styles.serviceTab} ${isSelected ? styles.serviceTabActive : ''} ${
-                        tab.highlight ? styles.serviceTabHighlight : ''
+                        isCombo ? styles.comboTab : ''
                       }`}
                       onClick={() => setSelectedService(tab.id)}
                     >
+                      {isCombo && (
+                        <div className={styles.comboPopularRibbon}>
+                          <span>🔥 MOST POPULAR</span>
+                        </div>
+                      )}
                       <div className={styles.tabIcon}>
-                        <Icon size={22} />
+                        <Icon size={24} />
                       </div>
                       <div className={styles.tabLabel}>{tab.label}</div>
-                      <span className={styles.tabBadge}>{tab.badge}</span>
+                      {tab.subtext && <div className={styles.tabSubtext}>{tab.subtext}</div>}
+                      <span className={isCombo ? styles.comboBadge : styles.tabBadge}>
+                        {tab.badge}
+                      </span>
                     </button>
                   );
                 })}
               </div>
+
+              {/* High-Impact Combo Discount Banner */}
+              {selectedService === 'Combo' && (
+                <div className={styles.comboBanner}>
+                  <div className={styles.comboBannerLeft}>
+                    <div className={styles.comboBannerIconWrap}>
+                      <Layers size={22} className={styles.comboBannerIcon} />
+                    </div>
+                    <div>
+                      <div className={styles.comboBannerTitle}>
+                        15% Bundle Discount Applied!
+                      </div>
+                      <div className={styles.comboBannerDesc}>
+                        Transform your cabin with both Starlights &amp; Ambient Lighting in one session. 15% discount is calculated on the combined total.
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.comboBannerSavings}>
+                    <span className={styles.savingsLabel}>YOU SAVE</span>
+                    <span className={styles.savingsAmount}>
+                      £{Math.round((selectedStarlight.price + selectedAmbient.price) * 0.15)}
+                    </span>
+                  </div>
+                </div>
+              )}
 
               {/* 3. Package Options based on Selected Service */}
               <div className={styles.packagesSection}>

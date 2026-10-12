@@ -21,16 +21,22 @@ export default function RegLookup() {
   const [vehicle, setVehicle] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const navigateToBooking = (vehicleSummary, make, year) => {
+  const navigateToBooking = (veh) => {
     const cleanReg = reg.trim().replace(/\s+/g, '').toUpperCase();
     const params = new URLSearchParams({ reg: cleanReg });
-    if (vehicleSummary) params.set('vehicle', vehicleSummary);
-    if (make) params.set('make', make);
-    if (year) params.set('year', String(year));
+    if (veh) {
+      if (veh.summary) params.set('summary', veh.summary);
+      if (veh.make) params.set('make', veh.make);
+      if (veh.year) params.set('year', String(veh.year));
+      if (veh.colour) params.set('colour', veh.colour);
+      if (veh.fuel) params.set('fuel', veh.fuel);
+      if (veh.engine_cc) params.set('engine_cc', String(veh.engine_cc));
+      if (veh.mot_status) params.set('mot_status', veh.mot_status);
+    }
     router.push(`/booking?${params.toString()}`);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const cleanReg = reg.trim().replace(/\s+/g, '').toUpperCase();
     if (!cleanReg) return;
@@ -39,25 +45,31 @@ export default function RegLookup() {
     setErrorMsg('');
     setVehicle(null);
 
-    setTimeout(() => {
-      setLoading(false);
-      if (sampleDvlaCars[cleanReg]) {
-        setVehicle(sampleDvlaCars[cleanReg]);
-      } else if (cleanReg.length >= 4) {
-        // Smart fallback match for user entered UK plate
-        setVehicle({
-          make: 'Vehicle',
-          model: `Reg ${cleanReg}`,
-          year: 2022,
-          colour: 'UK Spec',
-          fuel: 'Petrol / Hybrid',
-          engine_cc: null,
-          mot_status: 'Valid',
-        });
+    try {
+      const res = await fetch('/api/vehicle/lookup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reg: cleanReg }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data) {
+        setVehicle(data);
       } else {
-        setErrorMsg("Couldn't find that reg on DVLA. Continue with the booking anyway?");
+        const detail = data?.detail;
+        if (res.status === 404 || detail === 'vehicle_not_found') {
+          setErrorMsg("Couldn't find that reg on DVLA. Continue with the booking anyway?");
+        } else {
+          setErrorMsg("Lookup unavailable. Continue with the booking anyway?");
+        }
       }
-    }, 450);
+    } catch (err) {
+      console.error('DVLA lookup error:', err);
+      setErrorMsg("Lookup unavailable. Continue with the booking.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -156,7 +168,6 @@ export default function RegLookup() {
                   <div className={styles.matchTag}>DVLA MATCH</div>
                   <div className={styles.matchTitle}>
                     {vehicle.make}{' '}
-                    {vehicle.model && vehicle.model !== vehicle.make ? `· ${vehicle.model}` : ''}{' '}
                     {vehicle.year ? `· ${vehicle.year}` : ''}{' '}
                     {vehicle.colour ? `· ${vehicle.colour}` : ''}
                   </div>
@@ -164,7 +175,6 @@ export default function RegLookup() {
                     {[
                       vehicle.fuel,
                       vehicle.engine_cc ? `${vehicle.engine_cc}cc` : null,
-                      vehicle.mot_status ? `MOT ${vehicle.mot_status}` : null,
                     ]
                       .filter(Boolean)
                       .join(' · ')}
@@ -175,15 +185,7 @@ export default function RegLookup() {
               <button
                 type="button"
                 data-testid="vehicle-preview-continue"
-                onClick={() =>
-                  navigateToBooking(
-                    [vehicle.make, vehicle.model, vehicle.year, vehicle.colour]
-                      .filter(Boolean)
-                      .join(' · '),
-                    vehicle.make,
-                    vehicle.year
-                  )
-                }
+                onClick={() => navigateToBooking(vehicle)}
                 className={styles.continueBtn}
               >
                 <span>Continue with this vehicle</span>
